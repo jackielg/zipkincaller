@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 public class ZipkincallerApplication {
 
     private static final Logger LOG = Logger.getLogger(ZipkincallerApplication.class.getName());
+    
+    private static int  counter = 0;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ZipkincallerApplication.class, args);
@@ -33,9 +35,12 @@ public class ZipkincallerApplication {
 
     @RequestMapping("/")
     public String callHome(){
+    	
+    	counter = counter + 1;
+    	
         LOG.log(Level.INFO, "Callee will be called in Caller!");
 
-        return restTemplate.getForObject("http://localhost:8030", String.class)+"|CALLER";
+        return restTemplate.getForObject("http://localhost:8030", String.class)+" \r\n This is zipkincaller, I have been called " + counter + " times.";
     }
 
     @Bean
